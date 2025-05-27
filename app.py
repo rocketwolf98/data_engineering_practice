@@ -75,7 +75,7 @@ elif options == "Product Category ERP":
 # Visualization
 st.sidebar.title("Visualization")
 visualization = st.sidebar.radio("Select a visualization:", 
-                                  ["Sales by Product", "Customer Distribution by Country", "Product Categories"])
+                                  ["Sales by Product", "Customer Distribution by Country", "Product Categories", "Number of Customers by Country"])
 
 if visualization == "Sales by Product":
     st.header("Sales by Product")
@@ -93,4 +93,12 @@ elif visualization == "Product Categories":
     category_distribution = px_cat_erp['CAT'].value_counts().reset_index()
     category_distribution.columns = ['Category', 'Count']
     fig = px.bar(category_distribution, x='Category', y='Count', title="Product Categories Distribution")
+    st.plotly_chart(fig)
+elif visualization == "Number of Customers by Country":
+    st.header("Number of Customers by Country")
+    customer_distribution = loc_erp['CNTRY'].value_counts().reset_index()
+    customer_distribution.columns = ['Country', 'Count']
+    fig = px.choropleth(customer_distribution, locations='Country', locationmode='country names',
+                        color='Count', title="Number of Customers by Country",
+                        color_continuous_scale=px.colors.sequential.Plasma)
     st.plotly_chart(fig)
