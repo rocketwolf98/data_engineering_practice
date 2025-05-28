@@ -28,9 +28,10 @@ def load_data():
     sales_crm = pd.read_sql('SELECT * FROM sales_crm', con=get_db_connection())
     loc_erp = pd.read_sql('SELECT * FROM loc_erp', con=get_db_connection())
     px_cat_erp = pd.read_sql('SELECT * FROM px_cat_erp', con=get_db_connection())
-    return cust_crm, cust_erp, prd_crm, sales_crm, loc_erp, px_cat_erp
+    sales_crm_prd = pd.read_sql('SELECT * FROM sales_crm_prd', con=get_db_connection())
+    return cust_crm, cust_erp, prd_crm, sales_crm, loc_erp, px_cat_erp, sales_crm_prd
 
-cust_crm, cust_erp, prd_crm, sales_crm, loc_erp, px_cat_erp = load_data()
+cust_crm, cust_erp, prd_crm, sales_crm, loc_erp, px_cat_erp, sales_crm_prd = load_data()
 
 # Streamlit app
 st.title("Business Data Dashboard")
@@ -79,8 +80,9 @@ visualization = st.sidebar.radio("Select a visualization:",
 
 if visualization == "Sales by Product":
     st.header("Sales by Product")
-    sales_summary = sales_crm.groupby('sls_prd_key')['sls_sales'].sum().reset_index()
-    fig = px.bar(sales_summary, x='sls_prd_key', y='sls_sales', title="Total Sales by Product")
+    sales_summary = sales_crm_prd.groupby('prd_nm')['sls_sales'].sum().reset_index()
+    print(sales_crm_prd.columns)
+    fig = px.bar(sales_summary, x='prd_nm', y='sls_sales', title="Total Sales by Product")
     st.plotly_chart(fig)
 elif visualization == "Customer Distribution by Country":
     st.header("Customer Distribution by Country")
