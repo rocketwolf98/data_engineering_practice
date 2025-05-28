@@ -80,7 +80,7 @@ visualization = st.sidebar.radio("Select a visualization:",
 
 if visualization == "Sales by Product":
     st.header("Sales by Product")
-    sales_summary = sales_crm_prd.groupby('prd_nm')['sls_sales'].sum().reset_index()
+    sales_summary = sales_crm_prd.groupby('prd_nm')['sls_sales'].sum().reset_index().sort_values(by='sls_sales', ascending=False)
     print(sales_crm_prd.columns)
     fig = px.bar(sales_summary, x='prd_nm', y='sls_sales', title="Total Sales by Product")
     st.plotly_chart(fig)
