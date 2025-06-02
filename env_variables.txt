@@ -1,2 +1,0 @@
-DATABASE_URL = "postgresql://warehouse_g6bz_user:jC9UDZXRmW3AAGqpDNZbd5mB7x9M7UBu@dpg-d0p8t50dl3ps73aimi50-a.oregon-postgres.render.com/warehouse_g6bz"
-WAREHOUSE_URL ="postgresql://warehouse2_user:OjmJnWfDjVfFhA3WUcqxFdQxP2E3Bj3c@dpg-d0pbt88dl3ps73aks2a0-a.oregon-postgres.render.com/warehouse2"
